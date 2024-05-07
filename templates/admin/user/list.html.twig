@@ -1,0 +1,37 @@
+{% extends "layout/base_layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Liste Utilisateurs</h1> 
+    <a href="{{ path('admin_user_new') }}">Créer un utilisateur</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Pays</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.country }}</td>
+                    <td>
+                        <a href="{{ path('admin_user_update', {id: user.id}) }}">Modifier</a> 
+                        | 
+                        <a href="{{ path('admin_user_delete', {id: user.id}) }}">Supprimer</a>
+                    <td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

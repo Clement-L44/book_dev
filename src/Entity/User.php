@@ -35,14 +35,14 @@ class User
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $deletedAt = null;
-
     /**
      * @var Collection<int, ArticleView>
      */
     #[ORM\OneToMany(targetEntity: ArticleView::class, mappedBy: 'user_id', orphanRemoval: true)]
     private Collection $articleViews;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Profil $profil = null;
 
     public function __construct()
     {
@@ -126,18 +126,6 @@ class User
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeInterface
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(?\DateTimeInterface $deletedAt): static
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, ArticleView>
      */
@@ -164,6 +152,18 @@ class User
                 $articleView->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(?Profil $profil): static
+    {
+        $this->profil = $profil;
 
         return $this;
     }

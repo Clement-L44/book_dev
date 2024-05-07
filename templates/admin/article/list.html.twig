@@ -1,0 +1,37 @@
+{% extends "layout/base_layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Liste articles</h1> 
+    <a href="{{ path('admin_article_new') }}">Créer un article</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Content</th>
+                <th scope="col">CreatedAt</th>
+                <th scope="col">UpdatedAt</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.id }}</td>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.content }}</td>
+                    <td>{{ article.createdAt|date("d/m/Y H:i") }}</td>
+                    <td>{{ article.updatedAt|date("d/m/Y H:i") }}</td>
+                    <td>
+                        <a href="{{ path('admin_article_update', {id: article.id}) }}">Modifier</a> 
+                        | 
+                        <a href="{{ path('admin_article_delete', {id: article.id}) }}">Supprimer</a>
+                    <td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

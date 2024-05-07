@@ -18,18 +18,25 @@ class Tag
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $child_tag = null;
-
     /**
      * @var Collection<int, Article>
      */
     #[ORM\ManyToMany(targetEntity: Article::class, mappedBy: 'tags')]
     private Collection $articles;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'childTag')]
+    private ?self $parentTag = null;
+
+    /**
+     * @var Collection<int, self>
+     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parentTag')]
+    private Collection $childTag;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->childTag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -45,18 +52,6 @@ class Tag
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getChildTag(): ?int
-    {
-        return $this->child_tag;
-    }
-
-    public function setChildTag(?int $child_tag): static
-    {
-        $this->child_tag = $child_tag;
 
         return $this;
     }
@@ -83,6 +78,45 @@ class Tag
     {
         if ($this->articles->removeElement($article)) {
             $article->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    public function getParentTag(): ?self
+    {
+        return $this->parentTag;
+    }
+
+    public function setParentTag(?self $parentTag): static
+    {
+        $this->parentTag = $parentTag;
+
+        return $this;
+    }
+
+    public function getChildTag(): Collection
+    {
+        return $this->childTag;
+    }
+
+    public function addChildTag(self $childTag): static
+    {
+        if (!$this->childTag->contains($childTag)) {
+            $this->childTag->add($childTag);
+            $childTag->setParentTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChildTag(self $childTag): static
+    {
+        if ($this->childTag->removeElement($childTag)) {
+            // set the owning side to null (unless already changed)
+            if ($childTag->getParentTag() === $this) {
+                $childTag->setParentTag(null);
+            }
         }
 
         return $this;

@@ -1,0 +1,31 @@
+{% extends "layout/base_layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Liste profils</h1>
+    <a href="{{ path('admin_profil_new') }}">Créer un profil</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profil in profils %}
+                <tr>
+                    <td>{{ profil.id }}</td>
+                    <td>{{ profil.name }}</td>
+                    <td>
+                        <a href="{{ path('admin_profil_update', {id: profil.id}) }}">Modifier</a> 
+                        | 
+                        <a href="{{ path('admin_profil_delete', {id: profil.id}) }}">Supprimer</a>
+                    <td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
