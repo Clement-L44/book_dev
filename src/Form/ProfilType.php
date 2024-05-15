@@ -15,7 +15,7 @@ class ProfilType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Titre'
+                'label' => 'Nom du profil'
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer'

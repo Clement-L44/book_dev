@@ -27,6 +27,9 @@ class ArticleType extends AbstractType
                 'class' => Tag::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer'

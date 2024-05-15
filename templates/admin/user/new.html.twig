@@ -1,9 +1,46 @@
-{% extends "layout/base_layout.html.twig" %}
+{% extends "layout/base_admin_layout.html.twig" %}
 
 {% block content %}
 
-    <h1>New user</h1>
+    <h1 class="text-xl text-center font-bold underline">New utilisateur</h1>
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+
+        <div>
+
+            <div class="flex flex-row py-5">
+                <div class="flex flex-col w-1/2 pr-5">
+                    {{ form_label(form.firstname, null, { 'label_attr': { 'class': 'text-lg font-bold'} }) }}
+                    {{ form_widget(form.firstname, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5'} }) }}
+                </div>
+                <div class="flex flex-col w-1/2 pl-5">
+                    {{ form_label(form.lastname, null, { 'label_attr': { 'class': 'text-lg font-bold'} }) }}
+                    {{ form_widget(form.lastname, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5'} }) }}
+                </div>
+            </div>
+
+            <div class="flex flex-row py-5">
+                <div class="flex flex-col w-1/2 pr-5">
+                    {{ form_label(form.email, null, { 'label_attr': { 'class': 'text-lg font-bold'} }) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5'} }) }}
+                </div>
+                <div class="flex flex-col w-1/2 pl-5">
+                    {{ form_label(form.country, null, { 'label_attr': { 'class': 'text-lg font-bold'} }) }}
+                    {{ form_widget(form.country, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5'} }) }}
+                </div>
+            </div>
+
+            <div class="flex flex-col py-5 w-1/2 pr-5">
+                {{ form_label(form.profil, null, { 'label_attr': { 'class': 'text-lg font-bold'} }) }}
+                {{ form_widget(form.profil, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5'} }) }}
+            </div>
+
+            <div class="py-5">
+                {{ form_widget(form.save, { 'attr': {'class': 'text-white font-bold text-lg bg-green-700 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 py-5'} }) }}
+            </div>
+
+        </div>
+
+    {{ form_end(form) }}
 
 {% endblock %}
