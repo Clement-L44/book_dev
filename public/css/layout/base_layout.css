@@ -1,0 +1,8 @@
+.full-container-left .full-container-right{
+    max-width: 15%;
+}
+
+.full-container{
+    max-width: 70%;
+    background-color: red;
+}
